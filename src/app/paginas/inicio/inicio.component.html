@@ -1,44 +1,49 @@
+<div class="row m-4">
+    <div class="col-lg-3 input-group">
+        <input type="text" class="form-control" placeholder="Buscar por nombre">
+        <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        
+    </div>
+</div>
 
-    <div class="row m-4">
-        <div class="col-lg-3">
-            <input type="text" class="form-control">
+<div class="row m-4">
+
+    <div class="col">
+        <div class="row">
+            <div class="col-lg-6">
+                <ul class="list-group">
+                    <li *ngFor="let pokemon of listado" (click)="elegirPokemon(pokemon)" class="list-group-item">
+                        {{pokemon.id}}. {{pokemon.nombre |titlecase}}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="row m-4">
-
-        <div class="col" >
-            <div class="row">
-                <div class="col-lg-6">
-                    <ul class="list-group">
-                        <li *ngFor="let pokemon of listado"  (click)="elegirPokemon(pokemon)" class="list-group-item">
-                            {{pokemon.id}}. {{pokemon.nombre |titlecase}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <div *ngIf="pokemonSeleccionado">
-                        <div class="card">
-                            <div class="card-header text-center">
-                               <b>{{pokemonSeleccionado.nombre | titlecase}}</b> 
-                            </div>
-                            <div class="card-image"></div>
-                            <div class="card-body">
-                                <ul class="list-group">
-                                    <li class="list-group-item" *ngFor="let habilidad of pokemonSeleccionado.habilidades">
-                                        {{habilidad.nombre}}
-                                    </li>
-                                </ul>
-                            </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div *ngIf="pokemonSeleccionado">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
+                        </div>
+                        <div class="card-image"></div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let habilidad of pokemonSeleccionado.habilidades">
+                                    {{habilidad.nombre}}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>

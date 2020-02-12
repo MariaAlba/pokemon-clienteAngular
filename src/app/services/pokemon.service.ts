@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PokemonService implements IPokemonService {
-  
-  constructor(private http:HttpClient) { 
+
+  constructor(private http: HttpClient) {
     console.log('PokemonService constructor');
-  
+
   }//constructor
-  
+
   getAll(): Observable<any> {
     console.log('getAll');
     const url = `http://localhost:8080/pokemon-rest/api/pokemon/`;
@@ -20,7 +20,7 @@ export class PokemonService implements IPokemonService {
     return this.http.get(url);
   }//getAll
 
-  
+
   getPokemonById(id: number): Observable<any> {
     console.log('getPokemonById');
     throw new Error("Method not implemented.");
@@ -31,8 +31,10 @@ export class PokemonService implements IPokemonService {
     throw new Error("Method not implemented.");
   } //getPokemonByName
 
+  getHabilidades(): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
 
- 
 
- 
+
 }//PokemonService
