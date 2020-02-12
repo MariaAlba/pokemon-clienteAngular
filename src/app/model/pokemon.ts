@@ -1,10 +1,10 @@
-export class Pokemon{
+export class Pokemon {
 
     private _id: number;
     private _nombre: string;
     private _habilidades: Array<any>;
 
-    constructor(){
+    constructor() {
         this.id = 0;
         this.nombre = '';
         this.habilidades = [];
@@ -23,7 +23,7 @@ export class Pokemon{
     public set nombre(value: string) {
         this._nombre = value;
     }
-    
+
     public get habilidades(): Array<any> {
         return this._habilidades;
     }
@@ -34,3 +34,25 @@ export class Pokemon{
 
 
 }
+
+/*
+{
+    "id": 1,
+    "nombre": "lucario",
+    "habilidades": [
+      {
+        "id": 1,
+        "nombre": "impasible"
+      },
+      {
+        "id": 2,
+        "nombre": "foco interno"
+      },
+      {
+        "id": 3,
+        "nombre": "justiciero"
+      }
+    ]
+  }
+
+*/

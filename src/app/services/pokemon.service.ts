@@ -1,25 +1,38 @@
 import { Injectable } from '@angular/core';
 import { IPokemonService } from './IPokemonService';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService implements IPokemonService {
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+    console.log('PokemonService constructor');
   
-  getAll(): import("rxjs").Observable<any> {
+  }//constructor
+  
+  getAll(): Observable<any> {
+    console.log('getAll');
     const url = `http://localhost:8080/pokemon-rest/api/pokemon/`;
     console.trace('PokemonService getPokemon ' + url);
     return this.http.get(url);
-  }
-  getPokemonByName(nombre: string): import("rxjs").Observable<any> {
+  }//getAll
+
+  
+  getPokemonById(id: number): Observable<any> {
+    console.log('getPokemonById');
     throw new Error("Method not implemented.");
-  }
-  getPokemonById(id: number): import("rxjs").Observable<any> {
+  } // getPokemonById
+
+  getPokemonByName(nombre: string): Observable<any> {
+    console.log('getPokemonByName');
     throw new Error("Method not implemented.");
-  }
+  } //getPokemonByName
+
 
  
-}
+
+ 
+}//PokemonService

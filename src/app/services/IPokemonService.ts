@@ -2,7 +2,8 @@ import { Observable } from 'rxjs';
 
 export interface IPokemonService{
 
-    getAll():Observable<any>;
+
+    getAll():Observable<Array<any>>;
 
     getPokemonByName(nombre:string):Observable<any>;
 

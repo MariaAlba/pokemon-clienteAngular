@@ -1,9 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {HttpClient} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+
+import { FormsModule } from '@angular/forms';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { FooterComponent } from './componentes/footer/footer.component';
@@ -21,7 +26,9 @@ import { BackofficeComponent } from './paginas/backoffice/backoffice.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClient
+    HttpClientModule,
+    FormsModule, //modulo para formus con banan in a box
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
