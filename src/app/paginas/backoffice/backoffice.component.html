@@ -1,1 +1,57 @@
-<p>backoffice works!</p>
+<div class="row m-4">
+
+
+
+    <div class="col-lg-6 p4">
+        
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let p of pokemons" (click)="seleccionar(p)">
+                <span>{{p.nombre | titlecase}}</span>
+                <span class="btn btn-outline-danger btn-xs float-right " (click)="eliminar(p)">
+                    <i class="fa fa-trash"></i>
+                </span>
+                <!-- <span class="btn btn-xs btn-outline-info mr-3 float-right" (click)="modificar(p)">
+                    <i class="fa fa-edit"></i>
+                </span> -->
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-lg-6 p4">
+       
+        <div *ngIf="pokemonSeleccionado">
+            <div class="card">
+                <div class="card-header text-center">
+                    <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
+                </div>
+                <div class="card-image"></div>
+                <div class="card-body">
+                    <input type="text" [(ngModel)]="nombreModificado" placeholder="Nuevo nombre">
+                </div>
+                <div class="card-footer text-center">
+                    <span class="btn  btn-info mr-3" (click)="modificar(pokemonSeleccionado)">
+                       Modifiicar
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf=!pokemonSeleccionado>
+            <div class="card">
+                <div class="card-header text-center">
+                    <b>Nuevo Pokemon</b>
+                </div>
+                <div class="card-image"></div>
+                <div class="card-body">
+                    <input type="text" [(ngModel)]="nuevoNombre" placeholder="Nuevo nombre">
+                </div>
+                <div class="card-footer text-center">
+                    <span class="btn btn-primary mb-3" (click)="crear(nuevoNombre)">
+                        Nuevo Pokemon
+                    </span> 
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
