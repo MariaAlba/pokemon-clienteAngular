@@ -14,6 +14,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { BackofficeComponent } from './paginas/backoffice/backoffice.component';
+import { PokemonFiltroPipe } from './pipes/pokemon-filtro.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BackofficeComponent } from './paginas/backoffice/backoffice.component';
     NavbarComponent,
     FooterComponent,
     InicioComponent,
-    BackofficeComponent
+    BackofficeComponent,
+    PokemonFiltroPipe
   ],
   imports: [
     BrowserModule,

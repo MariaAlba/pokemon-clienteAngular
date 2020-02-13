@@ -10,13 +10,21 @@ import { Pokemon } from 'src/app/model/pokemon';
 export class InicioComponent implements OnInit {
 
   listado:Array<any>;
+  habilidades:Array<any>
+  habilidadesUnicas: Set<any>
   pokemonSeleccionado :Pokemon;
+  busqueda:string;
+  algo:boolean;
 
   constructor(private pokeService:PokemonService) {
     console.log('InicioComponent constructor');
 
     this.listado=[];
+    this.habilidades = [];
     this.pokemonSeleccionado;
+    this.busqueda = '';
+    this.habilidadesUnicas = new Set();
+    this.algo = false;
 
    }//constructor
 
@@ -28,12 +36,22 @@ export class InicioComponent implements OnInit {
       console.log('getall',data);
       this.listado = data;
 
+      for(let p of data){      
+          this.habilidades.push(p.habilidades.map((el)=>{return el.nombre}));
+      }
+      
+      this.habilidades = this.habilidades.reduce((p,c,i,a)=>{
+       return p.concat(c);
+      });
+      console.log('x', new Set([...this.habilidades]));
+      this.habilidadesUnicas = new Set([...this.habilidades]);
+
     },
     (error) => {
       console.warn(error);
     } 
     );
-
+    
   }//ngOnInit
 
   elegirPokemon(pokemon:Pokemon){
