@@ -15,6 +15,7 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { BackofficeComponent } from './paginas/backoffice/backoffice.component';
 import { PokemonFiltroPipe } from './pipes/pokemon-filtro.pipe';
+import { LoginComponent } from './paginas/login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PokemonFiltroPipe } from './pipes/pokemon-filtro.pipe';
     FooterComponent,
     InicioComponent,
     BackofficeComponent,
-    PokemonFiltroPipe
+    PokemonFiltroPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
