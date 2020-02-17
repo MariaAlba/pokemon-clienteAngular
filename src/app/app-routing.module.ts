@@ -8,7 +8,7 @@ import { LoginComponent } from './paginas/login/login.component';
 
 const routes: Routes = [
   { path: '', component: InicioComponent },
-  { path: '', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
   // vamos a proteger esta ruta con una guarda
   { path: 'backoffice', component: BackofficeComponent, canActivate: [LoginGuard]}
   
@@ -19,12 +19,13 @@ export const RUTAS = [
     'ruta': '/',
     'nombre': 'Inicio',
     'icono': ''
-  },
-  {
-    'ruta': '/backoffice',
-    'nombre': 'BackOffice',
-    'icono': ''
   }
+  //,
+  // {
+  //   'ruta': '/backoffice',
+  //   'nombre': 'BackOffice',
+  //   'icono': ''
+  // }
 ];
 
 @NgModule({

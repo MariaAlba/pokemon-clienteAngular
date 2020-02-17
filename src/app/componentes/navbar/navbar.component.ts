@@ -9,14 +9,19 @@ import { RUTAS } from 'src/app/app-routing.module';
 export class NavbarComponent implements OnInit {
 
   rutas: Array<any>;
+  estaLogeado:boolean;
   
   constructor() { 
 
     this.rutas = RUTAS;
 
+    this.estaLogeado = true;
   }
 
   ngOnInit() {
   }
 
+  salir(){
+    this.estaLogeado = false;
+  }
 }

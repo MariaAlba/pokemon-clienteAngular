@@ -1,6 +1,6 @@
 import { Usuario } from '../model/usuario';
 
-export interface IUsuario{
+export interface IUsuarioService{
 
     isLogged():boolean;
 
