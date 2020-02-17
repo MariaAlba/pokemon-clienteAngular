@@ -1,57 +1,74 @@
+<!--Fila  mensaje-->
+<div class="row m-4 ">
+  <div *ngIf="mensaje !==''" class="m-auto col-lg-12 alert alert-warning alert-dismissible fade show" role="alert">
+    {{mensaje}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<!--FIN Fila  mensaje-->
+
+<!--fila boton nuevo pokemon-->
+<div class="row m-4">
+  <div class="col-lg-4">
+    <span class="btn btn-primary" (click)="nuevoPokemon()">Nuevo Pokemon</span>
+  </div>
+</div><!-- FIN fila boton nuevo pokemon-->
+
 <div class="row m-4">
 
+  <!--listado pokemons -->
+  <div class="col-lg-6 p4">
+    <ul class="list-group">
+      <li *ngFor="let p of pokemons" (click)="seleccionar(p)"
+        class="list-group-item {{ p === pokemonSeleccionado ? 'active' :  ''}}">
+        <span class="mr-2 pokeId">{{p.id}}.</span>
+        <span>{{p.nombre | titlecase}}</span>
+        <span class="btn btn-outline-danger btn-sm float-right " (click)="eliminar(p)">
+          <i class="fa fa-trash"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <!--FIN listado pokemons -->
+
+  <!--formulario Pokemon-->
+  <div class="col-lg-6 p4">
+
+    <!--card-->
+    <div class="card" *ngIf="pokemonSeleccionado">
+
+      <div class="card-header text-center">
+        <b>{{pokemonSeleccionado.nombre ==='' ? 'Nuevo Pokemon' : pokemonSeleccionado.nombre | titlecase}}</b>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="formulario" (ngSubmit)="enviar(formulario.value)">
+
+          <input type="hidden" formControlName="id" >
+          <input type="hidden" formControlName="habilidades">
+          <input type="text" 
+          formControlName="nombre" 
+          placeholder="Nombre del pokemon" 
+          class="form-control" />
+
+          <small *ngIf="formulario.controls.nombre.invalid"
+            class="text-danger">Minimo 1 caracter Maximo 50</small>
+
+          <small *ngIf="formulario.controls.nombre.valid" class="text-success">Nombre correcto</small>
+
+          <br>
 
 
-    <div class="col-lg-6 p4">
-        
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let p of pokemons" (click)="seleccionar(p)">
-                <span>{{p.nombre | titlecase}}</span>
-                <span class="btn btn-outline-danger btn-xs float-right " (click)="eliminar(p)">
-                    <i class="fa fa-trash"></i>
-                </span>
-                <!-- <span class="btn btn-xs btn-outline-info mr-3 float-right" (click)="modificar(p)">
-                    <i class="fa fa-edit"></i>
-                </span> -->
-            </li>
-        </ul>
+          <input type="submit" [disabled]="formulario.invalid" class="btn btn-primary btn-block">
+        </form>
+
+      </div>
+
     </div>
+    <!--FIN card-->
+    
 
-    <div class="col-lg-6 p4">
-       
-        <div *ngIf="pokemonSeleccionado">
-            <div class="card">
-                <div class="card-header text-center">
-                    <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
-                </div>
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <input type="text" [(ngModel)]="nombreModificado" placeholder="Nuevo nombre">
-                </div>
-                <div class="card-footer text-center">
-                    <span class="btn  btn-info mr-3" (click)="modificar(pokemonSeleccionado)">
-                       Modifiicar
-                    </span>
-                </div>
-            </div>
-        </div>
 
-        <div *ngIf=!pokemonSeleccionado>
-            <div class="card">
-                <div class="card-header text-center">
-                    <b>Nuevo Pokemon</b>
-                </div>
-                <div class="card-image"></div>
-                <div class="card-body">
-                    <input type="text" [(ngModel)]="nuevoNombre" placeholder="Nuevo nombre">
-                </div>
-                <div class="card-footer text-center">
-                    <span class="btn btn-primary mb-3" (click)="crear(nuevoNombre)">
-                        Nuevo Pokemon
-                    </span> 
-                </div>
-            </div>
-           
-        </div>
-    </div>
 </div>

@@ -25,3 +25,32 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## Rest
+GET     endpoint/pokemon/               RESPONSE    200, 204
+GET     endpoint/pokemon/{id}           RESPONSE    200, 404
+DELETE  endpoint/pokemon/{id}           RESPONSE    200, 404
+POST    endpoint/pokemon                RESPONSE    201, 409 (nombre duplicado, min 1, max 50)
+        
+        request body{           
+            "nombre":"NUEVO_NOMBRE",
+            "habilidades":[]    //TODO para siguiente entrega
+        }
+
+        response body{
+            "id": "NUEVA",
+            "nombre": "NUEVO_NOMBRE"
+        }
+PUT    endpoint/pokemon/{id}           RESPONSE    201, 409 (nombre duplicado, min 1, max 50)
+        
+        request body{   
+            "id" :3        
+            "nombre":"NUEVO_NOMBRE",
+        }
+
+        response body{
+            "id": "3",
+            "nombre": "NUEVO_NOMBRE"
+        }
+
