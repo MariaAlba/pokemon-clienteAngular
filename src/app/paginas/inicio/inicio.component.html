@@ -7,27 +7,30 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col">
         <ul class="list-group-horizontal">
-            <li class="list-group-item d-inline" *ngFor="let h of habilidadesUnicas">
+            <li class="list-group-item d-inline" *ngFor="let h of opcionesHabilidad">
               <input type="checkbox" 
               name="habilidades" 
-             [checked]
-              ngModel [ngModelOptions]="{standalone: true}"> 
-              {{h}}
+             (change)="get(h)"
+
+            > 
+              {{h.value}}
+              
             </li>
         </ul>       
     </div>
 </div>
-
+<span class="bg-danger">a: {{opcionesSel |json}}</span>
 <div class="row m-4">
 
     <div class="col">
         <div class="row">
             <div class="col-lg-6">
                 <ul class="list-group">
-                    <li *ngFor="let pokemon of listado | pokemonFiltro:busqueda" 
+                    <li *ngFor="let pokemon of listado | pokemonFiltro:busqueda:opcionesSel" 
                         (click)="elegirPokemon(pokemon)" 
                         class="list-group-item {{ pokemon==pokemonSeleccionado ?'active': ''}}">
                         {{pokemon.nombre |titlecase}}
@@ -44,7 +47,7 @@
         <div class="row">
             <div class="col">
                 <div *ngIf="pokemonSeleccionado">
-                    <div class="card {{pokemonSeleccionado.nombre==='' ? 'inactive': ''}}">
+                    <div class="card">
                         <div class="card-header text-center">
                             <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
                         </div>
@@ -61,7 +64,7 @@
                     </div>
                 </div>
                 <div *ngIf="!pokemonSeleccionado">
-                    <div class="card {{pokemonSeleccionado.nombre==='' ? 'inactive': ''}}">
+                    <div class="card">
                         <div class="card-header text-center">
                             <b>Pokemon</b>
                         </div>
