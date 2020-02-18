@@ -6,6 +6,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col">
         <ul class="list-group-horizontal">
@@ -36,22 +37,41 @@
         </div>
     </div>
 
+    
+
+
     <div class="col">
         <div class="row">
             <div class="col">
                 <div *ngIf="pokemonSeleccionado">
-                    <div class="card">
+                    <div class="card {{pokemonSeleccionado.nombre==='' ? 'inactive': ''}}">
                         <div class="card-header text-center">
                             <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
                         </div>
                         <div class="card-image"></div>
                         <div class="card-body">
+                            <h6 class="card-text text-center" *ngIf="pokemonSeleccionado.habilidades.length===0">Sin habilidades</h6>
+                            <h6 class="card-text text-center" *ngIf="pokemonSeleccionado.habilidades.length>0">Habilidades</h6>
                             <ul class="list-group">
                                 <li class="list-group-item" *ngFor="let habilidad of pokemonSeleccionado.habilidades">
                                     {{habilidad.nombre}}
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div *ngIf="!pokemonSeleccionado">
+                    <div class="card {{pokemonSeleccionado.nombre==='' ? 'inactive': ''}}">
+                        <div class="card-header text-center">
+                            <b>Pokemon</b>
+                        </div>
+                        <div class="card-body border">
+
+                            <div class="card-image text-center">
+                                <img src="/assets/pokeball.jpg" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

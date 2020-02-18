@@ -1,7 +1,7 @@
 <!--Fila  mensaje-->
 <div class="row m-4 ">
-  <div *ngIf="mensaje !==''" class="m-auto col-lg-12 alert alert-warning alert-dismissible fade show" role="alert">
-    {{mensaje}}
+  <div *ngIf="mensaje.texto !==''" class="m-auto col-lg-12 alert {{mensaje.tipo}} alert-dismissible fade show" role="alert">
+    {{mensaje.texto}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

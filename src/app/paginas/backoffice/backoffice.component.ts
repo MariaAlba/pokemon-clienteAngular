@@ -13,7 +13,7 @@ export class BackofficeComponent implements OnInit {
   pokemons: Array<any>;
   pokemonSeleccionado: Pokemon;
 
-  mensaje:string;
+  mensaje: any;
 
   formulario: FormGroup;
 
@@ -21,14 +21,14 @@ export class BackofficeComponent implements OnInit {
 
     this.pokemons = [];
     this.pokemonSeleccionado = undefined;
-    this.mensaje = '';
+    this.mensaje = { "texto": "", "tipo": "alert-warning" };
 
     // construir formulario
     this.formulario = this.builder.group({
       // definir los FormControl == inputs [ value, validaciones ]
       id: [0],
       nombre: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-      habilidades:[[]]
+      habilidades: [[]]
     });
 
   }
@@ -45,7 +45,8 @@ export class BackofficeComponent implements OnInit {
     this.formulario.get('id').setValue(p.id);
   } //seleccionar
 
-  private nuevoPokemon(){
+  private nuevoPokemon() {
+   
     this.pokemonSeleccionado = new Pokemon();
     this.formulario.get('nombre').setValue('');
     this.formulario.get('id').setValue(0);
@@ -56,10 +57,11 @@ export class BackofficeComponent implements OnInit {
     this.pokeService.getAll().subscribe((data) => {
       this.pokemons = data;
     },
-    (error)=>{
-      console.warn(error);
-      this.mensaje = error.message;
-    });
+      (error) => {
+        console.warn(error);
+        this.mensaje.texto = error.message;
+        this.mensaje.tipo = "alert-danger"
+      });
 
   }//cargarPokemons
 
@@ -68,13 +70,14 @@ export class BackofficeComponent implements OnInit {
 
     if (confirm('¿Seguro que desea eliminar?')) {
       this.pokeService.eliminar(p).subscribe((data) => {
-        this.cargarPokemons();
-        this.pokemonSeleccionado = undefined;
-        this.mensaje = "Pokemon "+ p.id + ' - '+ p.nombre+ " eliminado con éxito"
+        this.limpiar();
+        this.mensaje.texto = "Pokemon " + p.id + ' - ' + p.nombre + " eliminado con éxito"
+        this.mensaje.tipo = "alert-success";
       },
         (error) => {
           console.warn('error en eliminar', error);
-          this.mensaje = "Error "+ error.status + " al eliminar. No se ha encontrado el recurso."
+          this.mensaje.texto = "Error " + error.status + " al eliminar. No se ha encontrado el recurso."
+          this.mensaje.tipo = "alert-danger";
         }
       );
 
@@ -83,21 +86,21 @@ export class BackofficeComponent implements OnInit {
       console.warn('Cancelado eliminar');
     }
 
-    
+
   } //eliminar
 
   //enviar formulario
-  enviar( values: any ) {
-    
+  enviar(values: any) {
+
     console.trace('Submit formulario %o', values);
     const nombre = values.nombre;
     const id = values.id;
     const habilidades = values.habilidades;
 
-    if(id == 0){//crear
+    if (id == 0) {//crear
       this.crear(nombre);
     }
-    else{ //modificar
+    else { //modificar
       this.pokemonSeleccionado.id = id;
       this.pokemonSeleccionado.nombre = nombre;
       this.pokemonSeleccionado.habilidades = habilidades;
@@ -111,15 +114,19 @@ export class BackofficeComponent implements OnInit {
     console.trace('modificar', p);
     this.pokeService.modificar(p).subscribe((data) => {
       console.warn(data);
-      this.cargarPokemons();
-      this.pokemonSeleccionado = undefined;
-      this.mensaje = 'Pokemon ' +p.id + ' - ' + p.nombre + ' modificado con éxito';
+      this.limpiar();
+      this.mensaje.texto = 'Pokemon ' + p.id + ' - ' + p.nombre + ' modificado con éxito';
+      this.mensaje.tipo = "alert-info";
     },
-    (error) => {
-      console.warn('error en modificar', error);
-      if(error.status == 400){this.mensaje = 'Ya existe un pokemon con ese nombre';}
-    }
-    
+      (error) => {
+        console.warn('error en modificar', error);
+        this.limpiar();
+        if (error.status == 400) {
+          this.mensaje.texto = 'Ya existe un pokemon con el nombre ' + p.nombre;
+          this.mensaje.tipo = "alert-danger";
+        }
+      }
+
     );
   }//modificar
 
@@ -130,17 +137,25 @@ export class BackofficeComponent implements OnInit {
 
     this.pokeService.crear(nuevoPokemon).subscribe((data) => {
       console.warn(data);
-      this.cargarPokemons();
-      this.pokemonSeleccionado = undefined;
-      this.mensaje = 'Nuevo pokemon ' +nuevoNombre+' creado con éxito';
+      this.limpiar();
+      this.mensaje.texto = 'Nuevo pokemon ' + nuevoNombre + ' creado con éxito';
+      this.mensaje.tipo = "alert-info";
     },
-    (error)=>{
-      console.warn('error en crear', error);
-      if(error.status == 400){this.mensaje = 'Ya existe un pokemon con ese nombre';}
-    });
-   }//crear
+      (error) => {
+        console.warn('error en crear', error);
+        this.limpiar();
+        if (error.status == 400) {
+          this.mensaje.texto = 'Ya existe un pokemon con el nombre ' + nuevoNombre;
+          this.mensaje.tipo = "alert-danger";
+        }
+      });
+  }//crear
 
 
+  private limpiar() {
+    this.pokemonSeleccionado = undefined;
+    this.cargarPokemons();
+  }
 
 
 
