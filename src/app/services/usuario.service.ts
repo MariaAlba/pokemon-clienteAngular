@@ -31,12 +31,13 @@ export class UsuarioService implements IUsuarioService {
     let usuarioBuscado: Usuario;
 
     const NOMBRE = 'admin';
-    const PASS = 'pass'
+    const PASS = 'admin'
 
     if(NOMBRE===nombre && PASS===password){
       console.trace('usuario NO encontrado');
       
       // creo usuarioBuscado en este caso / en otro lo recupero del servicio
+      usuarioBuscado = new Usuario();
       usuarioBuscado.nombre = nombre;
       usuarioBuscado.password = password;
       usuarioBuscado.id = 99;

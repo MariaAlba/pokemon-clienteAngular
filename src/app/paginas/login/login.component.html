@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div class="row justify-content-center mt-5">
+
+    <div class="col-4">
+
+        <form [formGroup]="formulario" (ngSubmit)="enviar(formulario.value)">
+
+            <input type="text" formControlName="nombre" placeholder="Nombre o Email" class="form-control" />
+
+            <small *ngIf="formulario.controls.nombre.invalid && formulario.controls.nombre.dirty"
+                class="text-danger">Minimo 2 caractes Maximo 100</small>
+
+            <small *ngIf="formulario.controls.nombre.valid" class="text-success">Nombre correcto</small>
+
+            <br>
+            <input type="password" formControlName="pass" placeholder="password" class="form-control" />
+            <small *ngIf="formulario.controls.pass.invalid && formulario.controls.pass.dirty" class="text-danger">Minimo
+                6 caractes Maximo 8</small>
+            <br>
+
+            <input type="submit" [disabled]="formulario.invalid" class="btn btn-primary btn-block" value="Enviar">
+        </form>
+
+
+    </div>
+
+
+</div>

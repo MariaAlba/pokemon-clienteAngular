@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RUTAS } from 'src/app/app-routing.module';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,17 +13,21 @@ export class NavbarComponent implements OnInit {
   rutas: Array<any>;
   estaLogeado:boolean;
   
-  constructor() { 
-
+  constructor(private router:Router, private usuarioService:UsuarioService) { 
+    console.trace('NavbarComponent constructor');
     this.rutas = RUTAS;
-
-    this.estaLogeado = true;
-  }
+  }//constructor
 
   ngOnInit() {
-  }
+    console.trace('NavbarComponent ngOnInit');
+  }//ngOnInit
 
   salir(){
-    this.estaLogeado = false;
-  }
+    console.trace('NavbarComponent click boton Cerrar Sesión');
+    const mensaje = '¿Esta seguro que quiere cerrar la sesión ?';
+    if ( confirm(mensaje) ) {
+      this.usuarioService.logout();
+      this.router.navigate(['/']); // ir a Inicio
+    }
+  }//salir
 }
