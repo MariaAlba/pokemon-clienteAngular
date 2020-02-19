@@ -121,7 +121,7 @@ export class BackofficeComponent implements OnInit {
       (error) => {
         console.warn('error en modificar', error);
         this.limpiar();
-        if (error.status == 400) {
+        if (error.status == 409) {
           this.mensaje.texto = 'Ya existe un pokemon con el nombre ' + p.nombre;
           this.mensaje.tipo = "alert-danger";
         }
@@ -144,7 +144,7 @@ export class BackofficeComponent implements OnInit {
       (error) => {
         console.warn('error en crear', error);
         this.limpiar();
-        if (error.status == 400) {
+        if (error.status == 409) {
           this.mensaje.texto = 'Ya existe un pokemon con el nombre ' + nuevoNombre;
           this.mensaje.tipo = "alert-danger";
         }
