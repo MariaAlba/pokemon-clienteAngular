@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { Pokemon } from 'src/app/model/pokemon';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { HabilidadService } from 'src/app/services/habilidad.service';
 
 @Component({
   selector: 'app-backoffice',
@@ -13,30 +14,35 @@ export class BackofficeComponent implements OnInit {
   pokemons: Array<any>;
   pokemonSeleccionado: Pokemon;
 
+  habilidades: Array<any>;
+  opciones: Array<any>;
+  habilidadFormArray: FormArray;
+
+  x:Set<any>;
+
   mensaje: any;
 
   formulario: FormGroup;
 
-  constructor(private pokeService: PokemonService, private builder: FormBuilder) {
+  constructor(private pokeService: PokemonService, private habilidadesService: HabilidadService, private builder: FormBuilder) {
 
     this.pokemons = [];
+
+    this.habilidades = [];
+    this.opciones = [];
+
+
     this.pokemonSeleccionado = undefined;
     this.mensaje = { "texto": "", "tipo": "alert-warning" };
 
-    // construir formulario
-    this.formulario = this.builder.group({
-      // definir los FormControl == inputs [ value, validaciones ]
-      id: [0],
-      nombre: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-      habilidades: [[]]
-    });
+    this.crearFormulario();
 
-  }
+
+  } //constructor
 
   ngOnInit() {
-
     this.cargarPokemons();
-
+    this.cargarHabilidades();
   }//ngOnInit
 
   private seleccionar(p: Pokemon) {
@@ -46,7 +52,7 @@ export class BackofficeComponent implements OnInit {
   } //seleccionar
 
   private nuevoPokemon() {
-   
+
     this.pokemonSeleccionado = new Pokemon();
     this.formulario.get('nombre').setValue('');
     this.formulario.get('id').setValue(0);
@@ -64,6 +70,24 @@ export class BackofficeComponent implements OnInit {
       });
 
   }//cargarPokemons
+
+  cargarHabilidades(): void {
+
+    this.habilidadesService.getAll().subscribe(
+      (data) => {
+        this.habilidades = data;
+        this.opciones = this.habilidades.map((el) => {
+          return { "id": el.id, "nombre": el.nombre, "checked": false };
+        });
+      },
+      (error) => {
+        console.warn(error);
+
+      }
+
+    );
+
+  }//cargarHabilidades
 
   private eliminar(p: Pokemon) {
     console.trace('eliminar', p);
@@ -95,7 +119,7 @@ export class BackofficeComponent implements OnInit {
     console.trace('Submit formulario %o', values);
     const nombre = values.nombre;
     const id = values.id;
-    const habilidades = values.habilidades;
+    const habilidades =  values.habilidades;
 
     if (id == 0) {//crear
       this.crear(nombre);
@@ -108,7 +132,6 @@ export class BackofficeComponent implements OnInit {
     }
 
   }// enviar
-
 
   private modificar(p: Pokemon) {
     console.trace('modificar', p);
@@ -157,6 +180,69 @@ export class BackofficeComponent implements OnInit {
     this.cargarPokemons();
   }
 
+  private crearFormulario() {
 
+    // construir formulario
+    this.formulario = this.builder.group({
+      // definir los FormControl == inputs [ value, validaciones ]
+      //id:new FormCOntrol(0);
+      //nombre: new FormControl ('', Validators.compose([]));
+      id: [0],
+      nombre: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+      habilidades: this.builder.array(
+        [],
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(1)
+        ])
+      )
+    });
+
+    this.habilidadFormArray = this.formulario.get('habilidades') as FormArray;
+
+  }//crearFormulario
+
+  crearFormGroupHabilidad(): FormGroup {
+    return this.builder.group({
+      id: [0],
+      nombre: ['',
+        [Validators.required, Validators.minLength(1), Validators.maxLength(50)]
+      ]
+    });
+  }//creacrearFormGroupHabilidad
+
+ 
+
+  checkHabilidad(option: any) {
+    option.checked = !option.checked;
+  //  console.debug('checkHabilidad %o', option);
+
+    const habilidad = this.crearFormGroupHabilidad();
+    habilidad.get('id').setValue(option.id);
+    habilidad.get('nombre').setValue(option.nombre);
+
+    if(option.checked){
+      console.debug(habilidad);
+      this.habilidadFormArray.push(habilidad);
+    }
+    else{
+    
+      //const el = this.habilidadFormArray.value
+      let posicion = this.habilidadFormArray.value.findIndex((el)=> el.id ===habilidad.value.id );
+      this.habilidadFormArray.removeAt(posicion);
+    
+      
+    }    
+    
+    console.debug('el array',this.habilidadFormArray.value);
+    
+ 
+
+
+
+
+
+
+  }
 
 }

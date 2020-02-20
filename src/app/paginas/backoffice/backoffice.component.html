@@ -9,6 +9,8 @@
 </div>
 <!--FIN Fila  mensaje-->
 
+
+
 <!--fila boton nuevo pokemon-->
 <div class="row m-4">
   <div class="col-lg-4">
@@ -47,7 +49,7 @@
         <form [formGroup]="formulario" (ngSubmit)="enviar(formulario.value)">
 
           <input type="hidden" formControlName="id" >
-          <input type="hidden" formControlName="habilidades">
+      
           <input type="text" 
           formControlName="nombre" 
           placeholder="Nombre del pokemon" 
@@ -60,6 +62,19 @@
 
           <br>
 
+          <label>Seleccionar habilidades</label>
+          <div *ngFor="let option of opciones">
+            <label>
+                <input type="checkbox"
+                       name="options"
+                       (change)="checkHabilidad(option)"
+                       value="{{option.id}}"
+                    
+                />
+                {{option.nombre}}
+            </label>
+        </div>
+      
 
           <input type="submit" [disabled]="formulario.invalid" class="btn btn-primary btn-block">
         </form>
