@@ -16,13 +16,11 @@ export class BackofficeComponent implements OnInit {
 
   habilidades: Array<any>;
   opciones: Array<any>;
-  habilidadFormArray: FormArray;
-
-  x:Set<any>;
-
+  
   mensaje: any;
-
+  
   formulario: FormGroup;
+  habilidadFormArray: FormArray;
 
   constructor(private pokeService: PokemonService, private habilidadesService: HabilidadService, private builder: FormBuilder) {
 
@@ -56,6 +54,7 @@ export class BackofficeComponent implements OnInit {
     this.pokemonSeleccionado = new Pokemon();
     this.formulario.get('nombre').setValue('');
     this.formulario.get('id').setValue(0);
+    this.formulario.get('habilidades').setValue([]);
   } //nuevoPokemon
 
   private cargarPokemons(): void {
@@ -122,7 +121,7 @@ export class BackofficeComponent implements OnInit {
     const habilidades =  values.habilidades;
 
     if (id == 0) {//crear
-      this.crear(nombre);
+      this.crear(nombre,habilidades);
     }
     else { //modificar
       this.pokemonSeleccionado.id = id;
@@ -153,10 +152,11 @@ export class BackofficeComponent implements OnInit {
     );
   }//modificar
 
-  private crear(nuevoNombre: string) {
+  private crear(nuevoNombre: string, habilidades:Array<any>) {
     console.trace('crear', nuevoNombre);
     let nuevoPokemon = new Pokemon();
     nuevoPokemon.nombre = nuevoNombre;
+    nuevoPokemon.habilidades = habilidades;
 
     this.pokeService.crear(nuevoPokemon).subscribe((data) => {
       console.warn(data);
