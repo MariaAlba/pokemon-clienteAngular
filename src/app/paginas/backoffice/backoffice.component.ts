@@ -47,6 +47,12 @@ export class BackofficeComponent implements OnInit {
     this.pokemonSeleccionado = p;
     this.formulario.get('nombre').setValue(p.nombre);
     this.formulario.get('id').setValue(p.id);
+    this.opciones =this.opciones.map( el => {
+      for(let h of p.habilidades){
+        if(h.id==el.id){el.checked=true;}
+      }
+      return el;
+    });
   } //seleccionar
 
   private nuevoPokemon() {
@@ -78,6 +84,7 @@ export class BackofficeComponent implements OnInit {
         this.opciones = this.habilidades.map((el) => {
           return { "id": el.id, "nombre": el.nombre, "checked": false };
         });
+
       },
       (error) => {
         console.warn(error);
@@ -180,6 +187,8 @@ export class BackofficeComponent implements OnInit {
     this.cargarPokemons();
   }
 
+
+ 
   private crearFormulario() {
 
     // construir formulario
