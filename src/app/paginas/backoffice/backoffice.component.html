@@ -69,7 +69,7 @@
                        name="options"
                        (change)="checkHabilidad(option)"
                        value="{{option.id}}" 
-                    
+                       [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}"
                        
                 />
                 {{option.nombre}}

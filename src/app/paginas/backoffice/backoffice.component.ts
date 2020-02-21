@@ -47,11 +47,13 @@ export class BackofficeComponent implements OnInit {
     this.pokemonSeleccionado = p;
     this.formulario.get('nombre').setValue(p.nombre);
     this.formulario.get('id').setValue(p.id);
-    this.opciones =this.opciones.map( el => {
+    let opcionesMarcadas = [];
+    opcionesMarcadas = this.opciones.map( (el) => {
+      el.checked = false;
       for(let h of p.habilidades){
-        if(h.id==el.id){el.checked=true;}
+        if(h.id==el.id){el.checked=true;}      
       }
-      return el;
+      return opcionesMarcadas;
     });
   } //seleccionar
 
