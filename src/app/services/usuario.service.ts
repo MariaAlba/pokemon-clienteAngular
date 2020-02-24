@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
 import { IUsuarioService } from './IUsuarioService';
 import { Usuario } from '../model/usuario';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService implements IUsuarioService {
 
-  private storage: any;
+  private storage: Storage;
   private user: Usuario;
 
-  constructor() { 
+  constructor(private http: HttpClient, private router: Router) { 
     console.trace('UsuarioService constructor');
-    this.storage = window.sessionStorage;
+    this.storage = sessionStorage;
     this.user = undefined;
   }//constructor
 
   isLogged(): boolean {
     console.trace('UsuarioService isLogged');
+  
+  
     if(this.storage.getItem('usuarioStorage')){
       return true;
     }else{
@@ -25,33 +30,28 @@ export class UsuarioService implements IUsuarioService {
     }
   }//isLogged
 
-  login(nombre: string, password: string): Usuario {
-    console.trace('UsuarioService login nombre %s password %s', nombre, password);
+
+  login(nombre: string, password: string): Observable<any>{
     
-    let usuarioBuscado: Usuario;
+    console.trace('UsuarioService login nombre %s password %s', nombre, password);
+    const url = 'http://localhost:8080/pokemon-rest/login';
+    return this.http.post(url, {nombre, password});
 
-    const NOMBRE = 'admin';
-    const PASS = 'admin'
+    
+    
+    
 
-    if(NOMBRE===nombre && PASS===password){
-      console.trace('usuario NO encontrado');
       
-      // creo usuarioBuscado en este caso / en otro lo recupero del servicio
-      usuarioBuscado = new Usuario();
-      usuarioBuscado.nombre = nombre;
-      usuarioBuscado.password = password;
-      usuarioBuscado.id = 99;
+    //    // marcar que esta logeado
+    //    this.storage.setItem('usuarioStorage', JSON.stringify(usuarioBuscado) );
 
-       // marcar que esta logeado
-       this.storage.setItem('usuarioStorage', JSON.stringify(usuarioBuscado) );
+    // }
+    // else{
+    //   console.trace('usuario NO encontrado');
+    //   this.storage.removeItem('usuarioStorage');
+    // }
 
-    }
-    else{
-      console.trace('usuario NO encontrado');
-      this.storage.removeItem('usuarioStorage');
-    }
-
-    return usuarioBuscado;
+    // return usuarioBuscado;
   }//login
 
   logout(): void {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/model/usuario';
+import { STORAGE } from 'src/app/model/global';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   formulario: FormGroup;
+  mensaje:any;
 
   constructor(private router: Router, private usuarioService: UsuarioService, private builder: FormBuilder) {
 
+    this.mensaje = { "texto": "", "tipo": "alert-warning" };
     console.trace('LoginComponent constructor');
 
     //construir el formualrio
@@ -31,23 +35,41 @@ export class LoginComponent implements OnInit {
     console.trace(' LoginComponent ngOnInit');
   }//ngOnInit
 
-  enviar( values: any ) {
+ enviar( values: any ) :void{
     console.trace('Submit formulario %o', values);
 
     const nombre = values.nombre;
     const password = values.pass;
     const uLogeado = this.usuarioService.login(nombre, password);
 
-    if ( uLogeado ) {
-      console.trace('Usuario logeado con exito %o', uLogeado);
-      this.router.navigate(['backoffice']);
-    } else {
-      console.warn('Usuario NO logeado');
-      // TODO cambiar alert
-      alert('Por favor prueba de nuevo a logearte');
-    }
 
+    this.usuarioService.login(nombre, password).subscribe(
+      (data)=>{
+      let user = new Usuario();
+      user.id = data.id;
+      user.nombre = data.nombre;
+      user.password = data.password;
+      
+      STORAGE.setItem('usuarioStorage', JSON.stringify(user));
+      this.mensaje.texto = "";
+
+      this.router.navigate(['backoffice']);
+
+    },
+    (error) =>{
+      alert('error al logearse');
+      this.mensaje.texto = "error al logearse";
+      this.router.navigate(['login']);
+    });
+    
+    
+    
+   
 
   }// enviar
+
+
+
+  
 
 }//LoginComponent
