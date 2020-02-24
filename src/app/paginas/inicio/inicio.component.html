@@ -1,3 +1,4 @@
+<!--Buscar por nombre-->
 <div class="row m-4">
     <div class="col-lg-3 input-group">
         <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="busqueda">
@@ -5,27 +6,27 @@
             <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
         </div>
     </div>
-</div>
+</div><!--FIN Buscar por nombre-->
 
+<!--Filtro habilidades-->
 
 <div class="row">
-    <div class="col">
+    <div class="col-lg-12 alert alert-danger"> <b>TODO</b>  filtro por habilidades</div>
+    <div class="col-lg-12">
         <ul class="list-group-horizontal">
             <li class="list-group-item d-inline" *ngFor="let h of opcionesHabilidad">
               <input type="checkbox" 
               name="habilidades" 
-             (change)="get(h)"
-
-            > 
-              {{h.value}}
-              
+             (change)="get(h)"> 
+              {{h.value}}             
             </li>
         </ul>       
     </div>
-</div>
-<span class="bg-danger">a: {{opcionesSel |json}}</span>
+</div><!--FIN Filtro habilidades-->
+
 <div class="row m-4">
 
+    <!--listado-->
     <div class="col">
         <div class="row">
             <div class="col-lg-6">
@@ -38,20 +39,22 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div><!--FIN listado-->
 
-    
-
-
+   
     <div class="col">
         <div class="row">
             <div class="col">
+                 
+                <!--Detalle activo-->
                 <div *ngIf="pokemonSeleccionado">
                     <div class="card">
                         <div class="card-header text-center">
                             <b>{{pokemonSeleccionado.nombre | titlecase}}</b>
                         </div>
-                        <div class="card-image"></div>
+                        <div class="card-image text-center">
+                            <img class="img-fluid reducida" src="{{pokemonSeleccionado.imagen}}" alt="{{pokemonSeleccionado.nombre}}" /> 
+                        </div>
                         <div class="card-body">
                             <h6 class="card-text text-center" *ngIf="pokemonSeleccionado.habilidades.length===0">Sin habilidades</h6>
                             <h6 class="card-text text-center" *ngIf="pokemonSeleccionado.habilidades.length>0">Habilidades</h6>
@@ -63,6 +66,9 @@
                         </div>
                     </div>
                 </div>
+                 <!--FIN Detalle activo-->
+
+                <!--Detalle Inactivo-->
                 <div *ngIf="!pokemonSeleccionado">
                     <div class="card">
                         <div class="card-header text-center">
@@ -77,6 +83,8 @@
                         
                     </div>
                 </div>
+                <!--FIN Detalle Inactivo-->
+            
             </div>
         </div>
     </div>

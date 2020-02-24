@@ -38,6 +38,7 @@
   <!--formulario Pokemon-->
   <div class="col-lg-6 p4">
 
+   
     <!--card-->
     <div class="card" *ngIf="pokemonSeleccionado">
 
@@ -60,6 +61,13 @@
 
           <small *ngIf="formulario.controls.nombre.valid" class="text-success">Nombre correcto</small>
 
+          <br>
+
+          <label>Imagen</label>
+          <input type="text" 
+          formControlName="imagen" 
+          placeholder="Ruta de la imagen" 
+          class="form-control" />
           <br>
 
           <label>Seleccionar habilidades</label>
