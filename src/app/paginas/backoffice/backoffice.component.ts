@@ -43,7 +43,7 @@ export class BackofficeComponent implements OnInit {
     this.cargarHabilidades();
   }//ngOnInit
 
-  private seleccionar(p: Pokemon) {
+ seleccionar(p: Pokemon) {
     this.pokemonSeleccionado = p;
     this.crearFormulario();
     this.formulario.get('nombre').setValue(p.nombre);
@@ -74,7 +74,7 @@ export class BackofficeComponent implements OnInit {
 
   } //seleccionar
 
-  private nuevoPokemon() {
+ nuevoPokemon() {
 
     this.pokemonSeleccionado = new Pokemon();
 
@@ -100,7 +100,7 @@ export class BackofficeComponent implements OnInit {
    
   } //nuevoPokemon
 
-  private cargarPokemons(): void {
+  cargarPokemons(): void {
 
     this.pokeService.getAll().subscribe((data) => {
       this.pokemons = data;
@@ -132,7 +132,7 @@ export class BackofficeComponent implements OnInit {
 
   }//cargarHabilidades
 
-  private eliminar(p: Pokemon) {
+ eliminar(p: Pokemon) {
     console.trace('eliminar', p);
 
     if (confirm('¿Seguro que desea eliminar?')) {
@@ -179,7 +179,7 @@ export class BackofficeComponent implements OnInit {
 
   }// enviar
 
-  private modificar(p: Pokemon) {
+  modificar(p: Pokemon) {
     console.trace('modificar', p);
     this.pokeService.modificar(p).subscribe((data) => {
       console.warn(data);
@@ -199,7 +199,7 @@ export class BackofficeComponent implements OnInit {
     );
   }//modificar
 
-  private crear(nuevoNombre: string, imagen: string, habilidades: Array<any>) {
+ crear(nuevoNombre: string, imagen: string, habilidades: Array<any>) {
     console.trace('crear', nuevoNombre);
     let nuevoPokemon = new Pokemon();
     nuevoPokemon.nombre = nuevoNombre;
@@ -224,12 +224,12 @@ export class BackofficeComponent implements OnInit {
   }//crear
 
 
-  private limpiar() {
+  limpiar() {
     this.pokemonSeleccionado = undefined;
     this.cargarPokemons();
   }//limpiar
 
-  private crearFormulario() {
+   crearFormulario() {
 
     
     // construir formulario

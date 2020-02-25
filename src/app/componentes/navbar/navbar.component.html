@@ -14,17 +14,17 @@
 
          <!-- rutas si el usuario esta loegado o no -->
         <li class="nav-item">
-          <a *ngIf="usuarioService.isLogged()" [routerLink]="'/backoffice'" routerLinkActive="active" class="nav-link">Backoffice</a>
+          <a *ngIf="isLogged()" [routerLink]="'/backoffice'" routerLinkActive="active" class="nav-link">Backoffice</a>
         </li>
 
         <div class="navbar-nav ml-auto login">
           
           <li class="nav-item">
-            <a *ngIf="!usuarioService.isLogged()" [routerLink]="'/login'" routerLinkActive="active" class="nav-link">Iniciar Sesión</a>
+            <a *ngIf="!isLogged()" [routerLink]="'/login'" routerLinkActive="active" class="nav-link">Iniciar Sesión</a>
           </li>
   
           <li class="nav-item">
-            <a *ngIf="usuarioService.isLogged()" [routerLink] (click)="salir()" routerLinkActive="active"  class="nav-link salir">
+            <a *ngIf="isLogged()" [routerLink] (click)="salir()" routerLinkActive="active"  class="nav-link salir">
               <span class="salir">
                 <i class="fa fa-power-off"></i>
                 Cerrar sesión

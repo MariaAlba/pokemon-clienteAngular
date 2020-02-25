@@ -4,19 +4,22 @@ import { Usuario } from '../model/usuario';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { URL } from '../model/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService implements IUsuarioService {
 
-  private storage: Storage;
-  private user: Usuario;
+  storage: Storage;
+   user: Usuario;
+  
 
   constructor(private http: HttpClient, private router: Router) { 
     console.trace('UsuarioService constructor');
     this.storage = sessionStorage;
     this.user = undefined;
+  
   }//constructor
 
   isLogged(): boolean {
@@ -34,7 +37,7 @@ export class UsuarioService implements IUsuarioService {
   login(nombre: string, password: string): Observable<any>{
     
     console.trace('UsuarioService login nombre %s password %s', nombre, password);
-    const url = 'http://localhost:8080/pokemon-rest/login';
+    const url = `${URL}login`;
     return this.http.post(url, {nombre, password});
 
     

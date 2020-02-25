@@ -3,6 +3,7 @@ import { IHabilidadService } from './IHabilidadService';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Habilidad } from '../model/habilidad';
+import { URL } from '../model/global';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class HabilidadService implements IHabilidadService{
   
   getAll(): Observable<any> {
     console.log('getAll');
-    const url = `http://localhost:8080/pokemon-rest/api/habilidad`;
+    const url = `${URL}api/habilidad`;
     console.trace('HabilidadService getHabilidad ' + url);
     return this.http.get(url);
   }//getAll

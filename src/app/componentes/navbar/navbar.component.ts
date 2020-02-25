@@ -12,8 +12,9 @@ export class NavbarComponent implements OnInit {
 
   rutas: Array<any>;
   estaLogeado:boolean;
+
   
-  constructor(private router:Router, private usuarioService:UsuarioService) { 
+  constructor( private router:Router,  private usuarioService:UsuarioService) { 
     console.trace('NavbarComponent constructor');
     this.rutas = RUTAS;
   }//constructor
@@ -21,6 +22,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     console.trace('NavbarComponent ngOnInit');
   }//ngOnInit
+
+  isLogged():boolean{
+   return this.usuarioService.isLogged();
+  }
 
   salir(){
     console.trace('NavbarComponent click boton Cerrar Sesión');

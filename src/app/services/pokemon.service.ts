@@ -3,6 +3,7 @@ import { IPokemonService } from './IPokemonService';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pokemon } from '../model/pokemon';
+import { URL } from '../model/global';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class PokemonService implements IPokemonService {
 
   getAll(): Observable<any> {
     console.log('getAll');
-    const url = `http://localhost:8080/pokemon-rest/api/pokemon/`;
+    const url = `${URL}api/pokemon/`;
     console.trace('PokemonService getPokemon ' + url);
     return this.http.get(url);
   }//getAll
@@ -24,7 +25,7 @@ export class PokemonService implements IPokemonService {
 
   getPokemonById(id: number): Observable<any> {
     console.log('getPokemonById');
-    const url = `http://localhost:8080/pokemon-rest/api/pokemon/${id}/`;
+    const url = `${URL}api/pokemon/${id}/`;
     console.trace('PokemonService getPokemon ' + url);
     return this.http.get(url);
   } // getPokemonById
@@ -40,20 +41,20 @@ export class PokemonService implements IPokemonService {
 
   crear(p: Pokemon): Observable<any> {
     console.log('crear');
-    const url = `http://localhost:8080/pokemon-rest/api/pokemon/`;
+    const url = `${URL}api/pokemon/`;
     console.trace('PokemonService getPokemon ' + url);
     return this.http.post<Pokemon>(url,p);
   }
   
   modificar(p: Pokemon): Observable<any> {
-    const url = `http://localhost:8080/pokemon-rest/api/pokemon/${p.id}`;
+    const url = `${URL}api/pokemon/${p.id}`;
     console.debug('PUT %s pokemon %o', url, p);
     return this.http.put<Pokemon>(url, p);
   }
   
   eliminar(p: Pokemon): Observable<any> {
     console.log('eliminar');
-    const url = `http://localhost:8080/pokemon-rest/api/pokemon/${p.id}`;
+    const url = `${URL}api/pokemon/${p.id}`;
     console.trace('PokemonService getPokemon ' + url);
     return this.http.delete(url);
   }
