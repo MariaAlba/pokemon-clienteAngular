@@ -27,7 +27,7 @@
         class="list-group-item {{ p === pokemonSeleccionado ? 'active' :  ''}}">
         <span class="mr-2 pokeId">{{p.id}}.</span>
         <span>{{p.nombre | titlecase}}</span>
-        <span class="btn btn-outline-danger btn-sm float-right " (click)="eliminar(p)">
+        <span class="btn btn-danger btn-sm float-right " (click)="eliminar(p)">
           <i class="fa fa-trash"></i>
         </span>
       </li>
@@ -51,6 +51,7 @@
 
           <input type="hidden" formControlName="id" >
       
+          <label class="control-label">Nombre:</label>
           <input type="text" 
           formControlName="nombre" 
           placeholder="Nombre del pokemon" 
@@ -61,26 +62,25 @@
 
           <small *ngIf="formulario.controls.nombre.valid" class="text-success">Nombre correcto</small>
 
-          <br>
+          <br><br>
 
-          <label>Imagen</label>
+          <label class="control-label">Imagen:</label>
           <input type="text" 
           formControlName="imagen" 
           placeholder="Ruta de la imagen" 
           class="form-control" />
-          <br>
+          <br> 
 
-          <label>Seleccionar habilidades</label>
+          <label>Seleccionar habilidades:</label>
           <div *ngFor="let option of opciones">
             <label>
                 <input type="checkbox"
                        name="options"
                        (change)="checkHabilidad(option)"
                        value="{{option.id}}" 
-                       [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}"
-                       
+                       [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}"  
                 />
-                {{option.nombre}}
+                {{option.nombre | titlecase}}
             </label>
         </div>
       

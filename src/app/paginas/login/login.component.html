@@ -1,22 +1,26 @@
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-4">
 <!--Fila  mensaje-->
 <div class="row m-4 ">
     <div *ngIf="mensaje.texto !==''" class="m-auto col-lg-12 alert {{mensaje.tipo}} alert-dismissible fade show" role="alert">
       {{mensaje.texto}}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
       </button>
     </div>
   </div>
   <!--FIN Fila  mensaje-->
 </div>
 
-<div class="row justify-content-center mt-5">    
+<div class="col-lg-12 text-center">
+  <p class="m-auto">Inicie sesión para acceder a su zona privada</p>
+</div>
 
-    <div class="col-4">
+<div class="row justify-content-center mt-2">    
+
+    <div class="col-4 border border-info rounded p-5">
 
         <form [formGroup]="formulario" (ngSubmit)="enviar(formulario.value)">
 
+            <label class="control-label">Nombre:</label>
             <input type="text" formControlName="nombre" placeholder="Nombre o Email" class="form-control" />
 
             <small *ngIf="formulario.controls.nombre.invalid && formulario.controls.nombre.dirty"
@@ -24,11 +28,13 @@
 
             <small *ngIf="formulario.controls.nombre.valid" class="text-success">Nombre correcto</small>
 
-            <br>
+            <br><br>
+
+            <label class="control-label">Contraseña</label>
             <input type="password" formControlName="pass" placeholder="password" class="form-control" />
             <small *ngIf="formulario.controls.pass.invalid && formulario.controls.pass.dirty" class="text-danger">Minimo
                 6 caractes Maximo 8</small>
-            <br>
+            <br><br>
 
             <input type="submit" [disabled]="formulario.invalid" class="btn btn-primary btn-block" value="Enviar">
         </form>

@@ -1,20 +1,19 @@
 <!--Buscar por nombre-->
 <div class="row m-4">
-    <div class="col-lg-3 input-group">
-        <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="busqueda">
-        <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+    <div class="col-lg-3 input-group ">
+        <input type="text" class="form-control border border-primary" placeholder="Buscar por nombre" [(ngModel)]="busqueda">
+        <div class="input-group-append ">
+            <span class="input-group-text border border-primary" id="basic-addon2"><i class="fa fa-search"></i></span>
         </div>
     </div>
 </div><!--FIN Buscar por nombre-->
 
 <!--Filtro habilidades-->
-
-<div class="row">
-   
-    <div class="col-lg-12">
+<div class="row"> 
+    <div class="col-lg-12">       
         <ul class="list-group-horizontal">
-            <li class="list-group-item d-inline" *ngFor="let h of opcionesHabilidad">
+            <p>Filtrar por habilidades:</p>
+            <li class="list-group-item d-lg-inline" *ngFor="let h of opcionesHabilidad">
               <input type="checkbox" 
               name="habilidades" 
              (click)="getHabilidadesFiltro(h)"> 
@@ -30,12 +29,15 @@
     <!--listado-->
     <div class="col">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-10">
+               
                 <ul class="list-group">
                     <li *ngFor="let pokemon of listado | pokemonFiltro: busqueda" 
                         (click)="elegirPokemon(pokemon)" 
                         class="list-group-item {{ pokemon==pokemonSeleccionado ?'active': ''}}">
-                        {{pokemon.nombre |titlecase}}
+                        <div></div>
+                        <i class="fa fa-adjust rotado mr-4" aria-hidden="true"></i>
+                        {{pokemon.nombre |titlecase}}                        
                     </li>
                 </ul>
             </div>
@@ -61,7 +63,7 @@
                             <h6 class="card-text text-center" *ngIf="pokemonSeleccionado.habilidades.length>0">Habilidades</h6>
                             <ul class="list-group">
                                 <li class="list-group-item" *ngFor="let habilidad of pokemonSeleccionado.habilidades">
-                                    {{habilidad.nombre}}
+                                    {{habilidad.nombre | titlecase}}
                                 </li>
                             </ul>
                         </div>
@@ -72,16 +74,17 @@
                 <!--Detalle Inactivo-->
                 <div *ngIf="!pokemonSeleccionado">
                     <div class="card">
-                        <div class="card-header text-center">
+                        <div class="card-header bg-warning text-center">
                             <b>Pokemon</b>
                         </div>
-                        <div class="card-body border">
-
-                            <div class="card-image text-center">
-                                <img src="assets/pokeball.jpg" alt="" class="img-fluid">
+                        <div class="card-body bg-dark">
+                           <div class="card-image text-center">
+                                <img src="assets/pokeball.png" alt="" class="img-fluid reducida">
                             </div>
-                        </div>
-                        
+                        </div>  
+                        <div class="card-footer bg-warning text-center">
+                            Elige un pokemon de la lista para ver sus habilidades
+                        </div>                 
                     </div>
                 </div>
                 <!--FIN Detalle Inactivo-->
