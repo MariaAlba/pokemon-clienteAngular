@@ -4,7 +4,7 @@ import { Usuario } from '../model/usuario';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { URL } from '../model/global';
+import { URLDEV} from '../model/global';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class UsuarioService implements IUsuarioService {
   login(nombre: string, password: string): Observable<any>{
     
     console.trace('UsuarioService login nombre %s password %s', nombre, password);
-    const url = `${URL}login`;
+    const url = `${URLDEV}login`;
     return this.http.post(url, {nombre, password});
 
     
